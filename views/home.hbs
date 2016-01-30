@@ -1,0 +1,252 @@
+<header class="header">
+    <a href="index.html" class="logo">
+        Title
+    </a>
+    <!-- Header Navbar-->
+    <nav class="navbar navbar-static-top" role="navigation">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        <div class="navbar-right">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <button type="button" data-toggle="modal" data-target="#myModalNorm" class="user-login btn btn-primary btn-xs">Login</button>
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-user"></i>
+                        <span>Jane Doe <i class="caret"></i></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-custom dropdown-menu-right">
+                        <li class="dropdown-header text-center">Account</li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-user fa-fw pull-right"></i>
+                                Profile
+                            </a>
+                            <a data-toggle="modal" href="#modal-user-settings">
+                                <i class="fa fa-cog fa-fw pull-right"></i>
+                                Settings
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-ban fa-fw pull-right"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="left-side sidebar-offcanvas">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar user panel -->
+            <div class="user-panel">
+                <div class="pull-left image">
+                    <img src="img/26115.jpg" class="img-circle" alt="User Image" />
+                </div>
+                <div class="pull-left info">
+                    <p>Hello, Jane</p>
+
+                    <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+            <!-- search form -->
+            <form action="#" method="get" class="sidebar-form">
+                <div class="input-group">
+                    <input type="text" name="q" class="form-control" placeholder="Search..."/>
+									<span class="input-group-btn">
+										<button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+									</span>
+                </div>
+            </form>
+
+            <ul class="sidebar-menu">
+                <li class="active">
+                    <a href="index.html">
+                        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="general.html">
+                        <i class="fa fa-gavel"></i> <span>General</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="basic_form.html">
+                        <i class="fa fa-globe"></i> <span>Basic Elements</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="simple.html">
+                        <i class="fa fa-glass"></i> <span>Simple tables</span>
+                    </a>
+                </li>
+
+            </ul>
+        </section>
+    </aside>
+    <aside class="right-side">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="sm-st clearfix">
+                        <span class="sm-st-icon st-red"><i class="fa fa-exchange"></i></span>
+                        <div class="sm-st-info">
+
+                            <h2 class="project-title">Algorithm Visualisation</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main row -->
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <!--YOUR CANVAS WITH ALGORITHM VISUALISATION GOES DOWN HERE-->
+                    <section class="panel">
+                        <header class="panel-heading">
+                            Earning Graph
+                        </header>
+                        <div class="panel-body">
+                            <div class="canvas-container fleft">
+                                <canvas id="canvas" width="600" height="400"></canvas>
+                                <div class="canvas-controller">
+                                    <button type="button" class="algorithm btn btn-default">Click me</button>
+                                    <input type="text" class="form-control" id="array" value="[1,2,3,4,5, -10, -20, -6, -4 ,6,8,9,10, -7, 11,12,13,14,15,20,30, 40, 50, 60, 70, -1, 4, 25, 32, 28]">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END OF YOUR CANVAS -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <section class="panel">
+                        <header class="panel-heading">
+                            COMMENTS
+                        </header>
+                        <div class="panel-body">
+                            <div class="twt-area">
+                                <form action="#" method="post">
+                                    <textarea class="form-control" name="profile-tweet" placeholder="Post your comment here.." rows="3"></textarea>
+
+                                    <div class="clearfix">
+                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                            <i class="fa fa-pencil"></i>
+                                            Post
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <ul class="media-list">
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="img/26115.jpg" alt="Avatar" class="img-circle" width="64" height="64">
+                                    </a>
+                                    <div class="media-body">
+													<span class="text-muted pull-right">
+														<small><em>30 min ago</em></small>
+													</span>
+                                        <a href="page_ready_user_profile.php">
+                                            <strong>John Doe</strong>
+                                        </a>
+                                        <p>
+                                            In hac <a href="#">habitasse</a> platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend.
+                                            <a href="#" class="text-danger">
+                                                <strong>#dev</strong>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="img/26115.jpg" alt="Avatar" class="img-circle" width="64" height="64">
+                                    </a>
+                                    <div class="media-body">
+													<span class="text-muted pull-right">
+														<small><em>30 min ago</em></small>
+													</span>
+                                        <a href="page_ready_user_profile.php">
+                                            <strong>John Doe</strong>
+                                        </a>
+                                        <p>
+                                            In hac <a href="#">habitasse</a> platea dictumst. Proin ac nibh rutrum lectus rhoncus eleifend.
+                                            <a href="#" class="text-danger">
+                                                <strong>#design</strong>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </section><!-- /.content -->
+        <div class="footer-main">
+            Antony Dikov, WWW Technologies 2016
+        </div>
+    </aside><!-- /.right-side -->
+</div><!-- ./wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModalNorm" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close"
+                        data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Modal title
+                </h4>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form id="login-form" role="form">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control"
+                               id="exampleInputEmail1" placeholder="Enter email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword">Password</label>
+                        <input type="password" class="form-control"
+                               id="exampleInputPassword" placeholder="Password"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName">Name</label>
+                        <input type="text" class="form-control"
+                               id="exampleInputName" placeholder="Enter name"/>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button id="button-login" class="btn btn-default">Login</button>
+                <button id="button-register" class="btn btn-default">Register</button>
+            </div>
+        </div>
+    </div>
+</div>
