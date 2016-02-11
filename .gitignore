@@ -19,6 +19,7 @@ $RECYCLE.BIN/
 
 # WebStorm
 .idea/
+node_modules/
 public/javascripts/templates.js
 
 # =========================
