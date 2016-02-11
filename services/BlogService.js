@@ -29,16 +29,18 @@ exports.createArticle = function (input, callback) {
 };
 
 exports.getArticleById = function (data, callback) {
-    "use strict";
+    'use strict';
 
     if (data && data.articleId) {
-        Article.findOne({_id: data.articleId}, function (err, article) {
-            if (err) {
-                callback({success: false, error: err});
-            } else {
-                callback({success: true, article: article});
-            }
-        });
+        Article.findOne({_id: data.articleId})
+            .populate('comments')
+            .exec(function (err, article) {
+                if (err) {
+                    callback({success: false, error: err});
+                } else {
+                    callback({success: true, article: article});
+                }
+            });
     } else {
         callback({success: false, error: WRONG_DATA});
     }

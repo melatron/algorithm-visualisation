@@ -5,7 +5,7 @@ var alg;
 
 $(function () {
     'use strict';
-
+    /* jshint ignore:start */
     class ArrayVisual {
         constructor(arr) {
             this.array = arr;
@@ -76,7 +76,7 @@ $(function () {
                 });
 
                 currentBox.oldX = totalSize;
-                console.log('For: ' + i + ' - ' + totalSize);
+
                 result.addChild(currentBox);
 
                 totalSize += (size + Math.round(20 / length));
@@ -89,12 +89,13 @@ $(function () {
 
         moveTo(container, x, y, callback) {
             var flag = container.y < 10;
+            var bounds = container.getTransformedBounds();
 
             if (flag) {
                 createjs.Tween.get(container)
                     .to({
                         x: container.x,
-                        y: container.y + 100
+                        y: container.y + bounds.height + 2
                     }, 200)
                     .to({
                         x: x,
@@ -143,8 +144,6 @@ $(function () {
         }
 
         swapInArr(first, second) {
-            console.log('number: ' + this._array[first] + ' with number : ' + this._array[second]);
-
             let temp = this._array[first];
             this._array[first] = this._array[second];
             this._array[second] = temp;
@@ -205,15 +204,26 @@ $(function () {
     var visualArray;
 
 
+    $('.clear-stage').off('click').on('click', function(){
+        alg.play = false;
+        Stage.removeAllChildren();
+    });
+
     $('.algorithm').off('click').on('click', function (e) {
         value = $('#array').val();
+
+        Stage.removeAllChildren();
 
         array = JSON.parse(value);
         visualArray = new ArrayVisual(array);
 
+        alg.play = false;
+
+        var route = $(this).data('alg');
+
         $.ajax(
             {
-                url: 'algorithm/quickSort',
+                url: 'algorithm/' + route,
                 type: "POST",
                 crossDomain: true,
                 //contentType: "application/json; charset=utf-8",
@@ -222,12 +232,9 @@ $(function () {
                 },
                 success: function (data, textStatus, jqXHR) {
                     alg.placeArray(array);
-                    console.log(data);
                     alg.startLoop(data.actions);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    //if fails
-                    console.log(jqXHR);
                     alert('it didnt work');
                 }
             });
@@ -250,13 +257,10 @@ $(function () {
             crossDomain: true,
             data: postData,
             success: function (data, textStatus, jqXHR) {
-                //data: return data from server
-                //alert('it worked');
-                console.log(this.data + "," + this.url);
+                toastr.success( 'Success login!');
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                //if fails
-                alert('it didnt work');
+                toastr.success( 'Failed loging in!');
             }
         });
     });
@@ -278,22 +282,30 @@ $(function () {
             crossDomain: true,
             data: postData,
             success: function (data, textStatus, jqXHR) {
-                //data: return data from server
-                //alert('it worked');
-                console.log(this.data + "," + this.url);
+                toastr.success( 'Success registering!');
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 //if fails
-                alert('it didnt work');
+                toastr.success( 'Failed registering!');
             }
         });
     });
 
+    $('.post-comment').off('click').on('click', function(){
+        var text = $('.text-comment').val();
+       alg.postComment(text);
+    });
+
     alg = {
+        play: true,
         placeArray: function (arr) {
             visualArray.array = arr;
 
+            this.play = true;
+
             var container = visualArray.getCanvasArray();
+
+            Stage.removeAllChildren();
 
             container.x = 20;
             container.y = 20;
@@ -314,7 +326,7 @@ $(function () {
             return visualArray;
         },
         fireAction(data, callback) {
-            console.log(data);
+
             visualArray[data.action](data, callback);
         },
         startLoop(arr) {
@@ -324,10 +336,14 @@ $(function () {
                 var index = loop.iteration();
 
                 self.fireAction(arr[index], function () {
-                    loop.next();
+                    if(alg.play) {
+                        loop.next();
+                    } else {
+                        loop.stopLoop()
+                    }
                 });
             }, function () {
-                console.log('end');
+
             });
         },
         syncLoop: function (iterations, process, exit) {
@@ -372,7 +388,53 @@ $(function () {
                         callback();
                 });
             });
+        },
+
+        getArticle: function (options) {
+            $.ajax({
+                url: 'blog/getArticle',
+                type: 'POST',
+                crossDomain: true,
+                xhrFields: {
+                    withCredentials: true
+                },
+                data: {
+                    articleId: "56bcfe4ba888a2101b0d94d2"
+                },
+                success: function (data, textStatus, jqXHR) {
+                    data.article.comments.forEach(function(c){
+                        $('.comment-section').append(templates.comment(c));
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+            });
+        },
+        postComment: function (text) {
+            $.ajax({
+                url: 'blog/postComment',
+                type: "POST",
+                crossDomain: true,
+                data: {
+                    articleId: '56bcfe4ba888a2101b0d94d2',
+                    content: text
+                },
+                success: function (data) {
+                    toastr.success( 'Your comment is posted!');
+
+                    $('.comment-section').append(templates.comment(data.comment));
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastr.success( 'Couldnt post your comment!');
+                }
+            });
+        },
+        placeComment: function() {
+
         }
     };
 
+    alg.getArticle();
+    /* jshint ignore:end */
 });
