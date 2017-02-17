@@ -1,34 +1,28 @@
-/**
- * Created by MelatroN on 27/01/2016.
- */
+var CombSortClass = require('../classes/CombSortClass');
+var QuickSortClass = require('../classes/QuickSortClass');
 
-'use strict';
+class AlgorithmService {
+    static getComboActions(input, callback) {
+        const comboSort = new CombSortClass(input);
 
-var combo = require('../classes/CombSortClass');
-var quick = require('../classes/QuickSortClass');
+        comboSort.sort();
 
-exports.getComboActions = function (input, callback) {
-    "use strict";
+        callback({
+            actions: comboSort.actionsArray,
+            sortedArr: comboSort.array
+        });
+    }
 
-    let comboSort = new combo.CombSortClass(input);
+    static getQuickActions(input, callback) {
+        const comboSort = new QuickSortClass(input);
 
-    comboSort.sort();
+        comboSort.sort();
 
-    callback({
-        actions: comboSort.actionsArray,
-        sortedArr: comboSort.array
-    });
-};
+        callback({
+            actions: comboSort.actionsArray,
+            sortedArr: comboSort.array
+        });
+    }
+}
 
-exports.getQuickActions = function (input, callback) {
-    "use strict";
-
-    let comboSort = new quick.QuickSortClass(input);
-
-    comboSort.sort();
-
-    callback({
-        actions: comboSort.actionsArray,
-        sortedArr: comboSort.array
-    });
-};
+module.exports = AlgorithmService;

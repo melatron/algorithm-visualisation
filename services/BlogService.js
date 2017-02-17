@@ -1,80 +1,97 @@
 var Article = require('../models/Article');
 var Comment = require('../models/Comment');
 
+
 const WRONG_DATA = 'Wrong data given';
+const STRING = 'string';
 
-exports.createArticle = function (input, callback) {
-    "use strict";
-    var createdArticle;
-    var data = input.data;
-    var user = input.user;
+class BlogService {
+    static createArticle(input, callback) {
+        let createdArticle;
+        let data = input.data;
+        let user = input.user;
 
-    if (data && user && typeof data.title === 'string' && typeof data.content === 'string') {
+        if (!data ||
+            !user ||
+            (typeof data.title) !== STRING ||
+            (typeof data.content) !== STRING) {
+
+            callback({ success: false, error: WRONG_DATA });
+
+            return;
+        }
+
         createdArticle = new Article({
             _creator: user._id,
             title: data.title,
             content: data.content
         });
 
-        createdArticle.save(function (err, article) {
+        createdArticle.save((err, article) => {
             if (err) {
-                callback({success: false, error: err})
-            } else {
-                callback({success: true, article: article});
+                callback({ success: false, error: err });
+                return;
             }
+
+            callback({ success: true, article: article });
         });
-    } else {
-        callback({success: false, error: WRONG_DATA});
     }
-};
 
-exports.getArticleById = function (data, callback) {
-    'use strict';
+    static getArticleById(data, callback) {
+        if (!data || !data.articleId) {
+            callback({ success: false, error: WRONG_DATA });
+            return;
+        }
 
-    if (data && data.articleId) {
-        Article.findOne({_id: data.articleId})
+        Article.findOne({ _id: data.articleId })
             .populate('comments')
-            .exec(function (err, article) {
+            .exec((err, article) => {
                 if (err) {
-                    callback({success: false, error: err});
-                } else {
-                    callback({success: true, article: article});
+                    callback({ success: false, error: err });
+                    return;
                 }
+
+                callback({ success: true, article: article });
             });
-    } else {
-        callback({success: false, error: WRONG_DATA});
     }
-};
 
-exports.addComment = function (input, callback) {
-    "use strict";
-    var createdComment;
-    var data = input.data;
-    var user = input.user;
-    var article = input.article;
+    static addComment(input, callback) {
+        let createdComment;
+        let data = input.data;
+        let user = input.user;
+        let article = input.article;
 
-    if (data && user && data.articleId && typeof data.content === 'string') {
+        if (!data ||
+            !user ||
+            !data.articleId ||
+            (typeof data.content) !== STRING) {
+
+            callback({ success: false, error: WRONG_DATA });
+            return;
+        }
         createdComment = new Comment({
             _creator: user._id,
             _article: article._id,
             content: data.content
         });
 
-        createdComment.save(function (err, comment) {
+        createdComment.save((err, comment) => {
             if (err) {
-                callback({success: false, error: err})
-            } else {
-                article.comments.push(comment);
-                article.save(function (err, article) {
-                    if (err) {
-                        callback({success: false, error: err});
-                    } else {
-                        callback({success: true, comment: comment});
-                    }
-                });
+                callback({ success: false, error: err });
+                return;
             }
+
+            article.comments.push(comment);
+            article.save((err, article) => {
+                if (err) {
+                    callback({ success: false, error: err });
+                    return;
+                }
+                callback({ success: true, comment: comment });
+
+            });
         });
-    } else {
-        callback({success: false, error: WRONG_DATA});
     }
 };
+
+module.exports = BlogService;

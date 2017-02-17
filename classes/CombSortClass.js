@@ -6,7 +6,7 @@
 
 var BaseSortClass = require("./BaseSortClass");
 
-class CombSortClass extends BaseSortClass.BaseSort {
+class CombSortClass extends BaseSortClass {
     constructor(array) {
         super(array);
     }
@@ -29,4 +29,4 @@ class CombSortClass extends BaseSortClass.BaseSort {
     }
 }
 
-exports.CombSortClass = CombSortClass;
+module.exports= CombSortClass;

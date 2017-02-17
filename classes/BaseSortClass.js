@@ -72,4 +72,4 @@ class BaseSort {
     }
 }
 
-exports.BaseSort = BaseSort;
+module.exports = BaseSort;
